@@ -42,10 +42,9 @@ def main():
 
 # Runs the raplidly exploring tree with a set probability to find the goal. Modify it above to see different values
 def rrtWithSolution(graph, start, iterations, screen, color, goal, probability):
-    goalCheck = 0
     graph.addVertex(start)
     while iterations is not 0:
-        if goalCheck >= 1:
+        if random.random() <= probability:
             nearest = findNearest(graph, goal)
             collisionNode = ClosesttoCollision(graph, goal, nearest)
             if collisionNode is False:
@@ -63,7 +62,9 @@ def rrtWithSolution(graph, start, iterations, screen, color, goal, probability):
             graph.addEdge(vertex, nearest)
         drawEdges(screen, graph, color)
         iterations -= 1
-        goalCheck += probability
+        for item in graph.vertices:
+            if item == goal:
+                return
 
 
 # if python says run, then we should run
